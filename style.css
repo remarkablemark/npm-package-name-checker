@@ -8,6 +8,20 @@
 @charset "UTF-8";
 
 /* ==========================================================================
+   Colors
+   ========================================================================== */
+
+/* success */
+.green {
+    color: #4caf50 !important;
+}
+
+/* failure */
+.red {
+    color: #f44336 !important;
+}
+
+/* ==========================================================================
    Main styles and overrides
    ========================================================================== */
 
@@ -25,9 +39,10 @@ form {
     width: 100%;
 }
 
-/* styling for input and label */
+/* styling for input, label, and result */
 .mdl-textfield__input,
-.mdl-textfield__label {
+.mdl-textfield__label,
+.npc-result {
     font-family: Roboto, Helvetica, Arial, sans-serif;
     font-size: 8vmin;
     letter-spacing: -.02em;
@@ -44,7 +59,8 @@ form {
     left: 0;
 }
 
-/* result icon */
+/* result text and icon */
+#npc-result-text,
 #npc-result-icon {
     color: #bbb;
     font-size: 6vmin;
