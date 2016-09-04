@@ -96,6 +96,7 @@
 
     // cache DOM nodes
     var inputElement = document.getElementById('npc-package-name');
+    var loadingElement = document.getElementById('npc-loading');
     var resultTextElement = document.getElementById('npc-result-text');
     var resultIconElement = document.getElementById('npc-result-icon');
 
@@ -108,6 +109,7 @@
 
         // blank input
         if (!packageName) {
+            removeClass(loadingElement, 'is-active');
             setText(resultTextElement, '');
             setResultIcon('default');
             inputValue = '';
@@ -123,6 +125,7 @@
 
         // invalid package name
         if (!isValidPackageName(packageName)) {
+            removeClass(loadingElement, 'is-active');
             setText(resultTextElement, 'Invalid name.');
             setResultIcon('error');
             return;
@@ -131,6 +134,7 @@
         // clear result and display loading spinner
         setText(resultTextElement, '');
         setText(resultIconElement, '');
+        addClass(loadingElement, 'is-active');
 
         // make GET request for package info
         request({
@@ -156,6 +160,10 @@
                 setText(resultTextElement, 'Server error.');
                 setResultIcon('broken');
             }
+
+        // always remove loading spinner
+        }).always(function(response) {
+            removeClass(loadingElement, 'is-active');
         });
 
     }, false);

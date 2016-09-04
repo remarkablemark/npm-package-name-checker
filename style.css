@@ -51,7 +51,21 @@ form {
     text-align: center;
 }
 
-/* styling for result */
+/* loader */
+.mdl-spinner {
+    width: 20px;
+    height: 20px;
+}
+
+@media only screen and (min-width: 480px) {
+    .mdl-spinner {
+        width: 5vmin;
+        height: 5vmin;
+    }
+}
+
+/* styling for loader and result */
+.mdl-spinner,
 .npc-result {
     position: absolute;
     margin: 0 auto;
