@@ -1,0 +1,26 @@
+/**
+ * Styles from Material Design Lite:
+ * https://getmdl.io/components/index.html
+ *
+ * Icons from Material Icons:
+ * https://google.github.io/material-design-icons/
+ */
+@charset "UTF-8";
+
+/* ==========================================================================
+   Main styles and overrides
+   ========================================================================== */
+
+/* center input */
+form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+}
+
+/* input takes full width of form */
+.mdl-textfield {
+    width: 100%;
+}
