@@ -24,3 +24,14 @@ form {
 .mdl-textfield {
     width: 100%;
 }
+
+/* styling for input and label */
+.mdl-textfield__input,
+.mdl-textfield__label {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 8vmin;
+    letter-spacing: -.02em;
+    line-height: 1;
+    outline: none;
+    text-align: center;
+}
