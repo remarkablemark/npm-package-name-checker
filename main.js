@@ -1,4 +1,4 @@
-(function() {
+(function(request) {
     'use strict';
 
     /**
@@ -84,6 +84,11 @@
         }
     }
 
+    // constants
+    var CORS_URL = 'http://www.corsmirror.com/v1/cors?url='
+    var NPM_URL = 'http://registry.npmjs.com/'
+    var BASE_URL = CORS_URL + NPM_URL;
+
     // cache DOM nodes
     var inputElement = document.getElementById('npc-package-name');
     var resultTextElement = document.getElementById('npc-result-text');
@@ -118,8 +123,30 @@
             return;
         }
 
-        // todo: add logic to verify name availability
-        setText(resultTextElement, 'Valid name.');
-        setResultIcon('success');
+        // clear result and display loading spinner
+        setText(resultTextElement, '');
+        setText(resultIconElement, '');
+
+        // make GET request for package info
+        request({
+            url: BASE_URL + encodeURIComponent(packageName)
+
+        // 200 response
+        }).then(function(response) {
+            // package name taken
+            // todo: handle case where npm is hanging on to a package name
+            // that is not currently in use (so it is technically available)
+            setText(resultTextElement, 'Name is taken.');
+            setResultIcon('error');
+
+        // error
+        }).fail(function(error, message) {
+            // not found means package is available
+            if (error.status === 404) {
+                setText(resultTextElement, 'Name is available.');
+                setResultIcon('success');
+            }
+        });
+
     }, false);
-})();
+})(window.reqwest);
