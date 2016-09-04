@@ -76,6 +76,11 @@
                 addClass(resultIconElement, 'green');
                 setText(resultIconElement, 'check_circle');
                 return;
+            case 'broken':
+                removeClass(resultIconElement, 'green');
+                addClass(resultIconElement, 'red');
+                setText(resultIconElement, 'report_problem');
+                return;
             default:
                 removeClass(resultIconElement, 'red');
                 removeClass(resultIconElement, 'green');
@@ -145,6 +150,11 @@
             if (error.status === 404) {
                 setText(resultTextElement, 'Name is available.');
                 setResultIcon('success');
+
+            // handle errors like internal server error
+            } else {
+                setText(resultTextElement, 'Server error.');
+                setResultIcon('broken');
             }
         });
 
