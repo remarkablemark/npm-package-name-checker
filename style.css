@@ -35,3 +35,18 @@ form {
     outline: none;
     text-align: center;
 }
+
+/* styling for result */
+.npc-result {
+    position: absolute;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+}
+
+/* result icon */
+#npc-result-icon {
+    color: #bbb;
+    font-size: 6vmin;
+    vertical-align: middle;
+}
