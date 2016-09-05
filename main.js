@@ -1,6 +1,26 @@
 (function(request) {
     'use strict';
 
+    // constants
+    var CORS_URL = 'http://www.corsmirror.com/v1/cors?url='
+    var NPM_URL = 'http://registry.npmjs.com/'
+    var BASE_URL = CORS_URL + NPM_URL;
+    var DELAY = 300; // delay for debouncing the GET request (in milliseconds)
+
+    // cache DOM nodes
+    var inputElement = document.getElementById('npc-package-name');
+    var loadingElement = document.getElementById('npc-loading');
+    var resultTextElement = document.getElementById('npc-result-text');
+    var resultIconElement = document.getElementById('npc-result-icon');
+
+    // store input value
+    var inputValue;
+    // global timeout for debounce
+    var timeout;
+
+    // check name when it is typed (with a debounce)
+    inputElement.addEventListener('keyup', onKeyup, false);
+
     /**
      * Add class to DOM element.
      *
@@ -89,22 +109,32 @@
         }
     }
 
-    // constants
-    var CORS_URL = 'http://www.corsmirror.com/v1/cors?url='
-    var NPM_URL = 'http://registry.npmjs.com/'
-    var BASE_URL = CORS_URL + NPM_URL;
+    /**
+     * Debounce a function call.
+     * https://remysharp.com/2010/07/21/throttling-function-calls
+     *
+     * @param  {Function} func    - The function to debounce.
+     * @param  {Number}   [delay] - The delay in milliseconds.
+     * @return {Function}         - The debounced function.
+     */
+    function debounce(func, delay) {
+        return function() {
+            var context = this;
+            var args = arguments;
+            // update global timeout
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                func.apply(context, args);
+            }, delay);
+        };
+    }
 
-    // cache DOM nodes
-    var inputElement = document.getElementById('npc-package-name');
-    var loadingElement = document.getElementById('npc-loading');
-    var resultTextElement = document.getElementById('npc-result-text');
-    var resultIconElement = document.getElementById('npc-result-icon');
-
-    // store input value
-    var inputValue;
-
-    // check name after it's typed
-    inputElement.addEventListener('keyup', function(event) {
+    /**
+     * Handle `keyup` event.
+     *
+     * @param {Function} - The event handler.
+     */
+    function onKeyup(event) {
         var packageName = inputElement.value.toLowerCase();
 
         // blank input
@@ -136,35 +166,40 @@
         setText(resultIconElement, '');
         addClass(loadingElement, 'is-active');
 
-        // make GET request for package info
-        request({
-            url: BASE_URL + encodeURIComponent(packageName)
+        // debounce the request to prevent it from taxing the server
+        debounce(function() {
 
-        // 200 response
-        }).then(function(response) {
-            // package name taken
-            // todo: handle case where npm is hanging on to a package name
-            // that is not currently in use (so it is technically available)
-            setText(resultTextElement, 'Name is taken.');
-            setResultIcon('error');
+            // make GET request for package info
+            request({
+                url: BASE_URL + encodeURIComponent(packageName)
 
-        // error
-        }).fail(function(error, message) {
-            // not found means package is available
-            if (error.status === 404) {
-                setText(resultTextElement, 'Name is available.');
-                setResultIcon('success');
+            // 200 response
+            }).then(function(response) {
+                // package name taken
+                // todo: handle case where npm is hanging on to a package name
+                // that is not currently in use (so it is technically available)
+                setText(resultTextElement, 'Name is taken.');
+                setResultIcon('error');
 
-            // handle errors like internal server error
-            } else {
-                setText(resultTextElement, 'Server error.');
-                setResultIcon('broken');
-            }
+            // error
+            }).fail(function(error, message) {
+                // not found means package is available
+                if (error.status === 404) {
+                    setText(resultTextElement, 'Name is available.');
+                    setResultIcon('success');
 
-        // always remove loading spinner
-        }).always(function(response) {
-            removeClass(loadingElement, 'is-active');
-        });
+                // handle errors like internal server error
+                } else {
+                    setText(resultTextElement, 'Server error.');
+                    setResultIcon('broken');
+                }
 
-    }, false);
+            // always remove loading spinner
+            }).always(function(response) {
+                removeClass(loadingElement, 'is-active');
+            });
+
+        }, DELAY)();
+    }
+
 })(window.reqwest);
