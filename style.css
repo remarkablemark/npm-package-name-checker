@@ -87,6 +87,13 @@ form {
     text-decoration: none;
 }
 
+#npc-result-text.hover:hover {
+    color: #aaa;
+    cursor: pointer;
+    border-bottom: 1px solid;
+    text-decoration: none;
+}
+
 /* styling for GitHub ribbon */
 #gh-ribbon {
     position: absolute;

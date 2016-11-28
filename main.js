@@ -82,7 +82,7 @@
      * Check if npm package name is valid.
      * https://github.com/npm/validate-npm-package-name#naming-rules
      *
-     * @param  {String} packageName - The package name.
+     * @param  {String}  packageName - The package name.
      * @return {Boolean}
      */
     function isValidPackageName(packageName) {
@@ -194,12 +194,14 @@
                 setProperty(resultTextElement, 'text', 'Name is taken.');
                 setProperty(resultTextElement, 'href', NPM_PACKAGE_URL + packageName);
                 setProperty(resultTextElement, 'target', '_blank');
+                addClass(resultTextElement, 'hover');
                 setResultIcon('error');
 
             // error
             }).fail(function(error, message) {
                 setProperty(resultTextElement, 'href', '#');
                 setProperty(resultTextElement, 'target', '');
+                removeClass(resultTextElement, 'hover');
 
                 // not found means package is available
                 if (error.status === 404) {
