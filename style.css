@@ -81,6 +81,12 @@ form {
     vertical-align: middle;
 }
 
+/* result text link */
+#npc-result-text {
+    cursor: default;
+    text-decoration: none;
+}
+
 /* styling for GitHub ribbon */
 #gh-ribbon {
     position: absolute;
