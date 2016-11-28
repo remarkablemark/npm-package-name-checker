@@ -2,9 +2,10 @@
     'use strict';
 
     // constants
-    var CORS_URL = 'http://www.corsmirror.com/v1/cors?url='
-    var NPM_URL = 'http://registry.npmjs.com/'
-    var BASE_URL = CORS_URL + NPM_URL;
+    var CORS_URL = 'http://www.corsmirror.com/v1/cors?url=';
+    var NPM_REGISTRY_URL = 'http://registry.npmjs.com/';
+    var NPM_PACKAGE_URL = 'https://www.npmjs.com/package/';
+    var BASE_URL = CORS_URL + NPM_REGISTRY_URL;
     var DELAY = 300; // delay for debouncing the GET request (in milliseconds)
 
     // cache DOM nodes
@@ -50,17 +51,29 @@
     }
 
     /**
-     * Set text for DOM element.
+     * Set property for DOM element.
      *
-     * @param  {HTMLElement} element - The element.
-     * @param  {String}      text    - The text.
-     * @return {HTMLElement} element - The element.
+     * @param  {HTMLElement} element  - The element.
+     * @param  {String}      property - The property.
+     * @param  {String}      value    - The value.
+     * @return {HTMLElement}          - The element.
      */
-    function setText(element, text) {
-        if (element.textContent !== text) {
-            element.textContent = text;
-        } else if (element.innerText !== text) {
-            element.innerText = text;
+    function setProperty(element, property, value) {
+        if (!element) {
+            throw new Error('The first argument must be an element');
+        }
+        switch (property) {
+            case 'text':
+                if (element.textContent !== value) {
+                    element.textContent = value;
+                } else if (element.innerText !== value) {
+                    element.innerText = value;
+                }
+                break;
+            default:
+                if (element[property] !== value) {
+                    element[property] = value;
+                }
         }
         return element;
     }
@@ -69,7 +82,7 @@
      * Check if npm package name is valid.
      * https://github.com/npm/validate-npm-package-name#naming-rules
      *
-     * @param  {String} packageName - The package name.
+     * @param  {String}  packageName - The package name.
      * @return {Boolean}
      */
     function isValidPackageName(packageName) {
@@ -89,22 +102,22 @@
             case 'error':
                 removeClass(resultIconElement, 'green');
                 addClass(resultIconElement, 'red');
-                setText(resultIconElement, 'cancel');
+                setProperty(resultIconElement, 'text', 'cancel');
                 return;
             case 'success':
                 removeClass(resultIconElement, 'red');
                 addClass(resultIconElement, 'green');
-                setText(resultIconElement, 'check_circle');
+                setProperty(resultIconElement, 'text', 'check_circle');
                 return;
             case 'broken':
                 removeClass(resultIconElement, 'green');
                 addClass(resultIconElement, 'red');
-                setText(resultIconElement, 'report_problem');
+                setProperty(resultIconElement, 'text', 'report_problem');
                 return;
             default:
                 removeClass(resultIconElement, 'red');
                 removeClass(resultIconElement, 'green');
-                setText(resultIconElement, 'search');
+                setProperty(resultIconElement, 'text', 'search');
                 return;
         }
     }
@@ -140,7 +153,7 @@
         // blank input
         if (!packageName) {
             removeClass(loadingElement, 'is-active');
-            setText(resultTextElement, '');
+            setProperty(resultTextElement, 'text', '');
             setResultIcon('default');
             inputValue = '';
             return;
@@ -156,14 +169,14 @@
         // invalid package name
         if (!isValidPackageName(packageName)) {
             removeClass(loadingElement, 'is-active');
-            setText(resultTextElement, 'Invalid name.');
+            setProperty(resultTextElement, 'text', 'Invalid name.');
             setResultIcon('error');
             return;
         }
 
         // clear result and display loading spinner
-        setText(resultTextElement, '');
-        setText(resultIconElement, '');
+        setProperty(resultTextElement, 'text', '');
+        setProperty(resultIconElement, 'text', '');
         addClass(loadingElement, 'is-active');
 
         // debounce the request to prevent it from taxing the server
@@ -178,19 +191,26 @@
                 // package name taken
                 // todo: handle case where npm is hanging on to a package name
                 // that is not currently in use (so it is technically available)
-                setText(resultTextElement, 'Name is taken.');
+                setProperty(resultTextElement, 'text', 'Name is taken.');
+                setProperty(resultTextElement, 'href', NPM_PACKAGE_URL + packageName);
+                setProperty(resultTextElement, 'target', '_blank');
+                addClass(resultTextElement, 'hover');
                 setResultIcon('error');
 
             // error
             }).fail(function(error, message) {
+                setProperty(resultTextElement, 'href', '#');
+                setProperty(resultTextElement, 'target', '');
+                removeClass(resultTextElement, 'hover');
+
                 // not found means package is available
                 if (error.status === 404) {
-                    setText(resultTextElement, 'Name is available.');
+                    setProperty(resultTextElement, 'text', 'Name is available.');
                     setResultIcon('success');
 
                 // handle errors like internal server error
                 } else {
-                    setText(resultTextElement, 'Server error.');
+                    setProperty(resultTextElement, 'text', 'Server error.');
                     setResultIcon('broken');
                 }
 
