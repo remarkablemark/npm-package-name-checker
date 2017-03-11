@@ -182,41 +182,43 @@
         // debounce the request to prevent it from taxing the server
         debounce(function() {
 
-            // make GET request for package info
             request({
-                url: BASE_URL + encodeURIComponent(packageName)
+                url: BASE_URL + encodeURIComponent(packageName),
+                method: 'GET'
 
-            // 200 response
             }).then(function(response) {
-                // package name taken
-                // todo: handle case where npm is hanging on to a package name
-                // that is not currently in use (so it is technically available)
+                // package is unpublished
+                if (response.time.unpublished instanceof Object) {
+                    return { status: 404 };
+                }
+
+                // package name is taken
                 setProperty(resultTextElement, 'text', 'Name is taken.');
                 setProperty(resultTextElement, 'href', NPM_PACKAGE_URL + packageName);
                 setProperty(resultTextElement, 'target', '_blank');
                 addClass(resultTextElement, 'hover');
                 setResultIcon('error');
 
-            // error
             }).fail(function(error, message) {
-                setProperty(resultTextElement, 'href', '#');
-                setProperty(resultTextElement, 'target', '');
-                removeClass(resultTextElement, 'hover');
-
-                // not found means package is available
-                if (error.status === 404) {
-                    setProperty(resultTextElement, 'text', 'Name is available.');
-                    setResultIcon('success');
-
-                // handle errors like internal server error
-                } else {
+                // server error
+                if (error.status >= 500) {
                     setProperty(resultTextElement, 'text', 'Server error.');
                     setResultIcon('broken');
+                    console.error(error, message);
                 }
 
-            // always remove loading spinner
-            }).always(function(response) {
+            }).always(function(result) {
+                // remove loading spinner
                 removeClass(loadingElement, 'is-active');
+
+                // package is available
+                if (result && result.status === 404) {
+                    setProperty(resultTextElement, 'text', 'Name is available.');
+                    setResultIcon('success');
+                    setProperty(resultTextElement, 'href', '#');
+                    setProperty(resultTextElement, 'target', '');
+                    removeClass(resultTextElement, 'hover');
+                }
             });
 
         }, DELAY)();
