@@ -2,10 +2,11 @@
     'use strict';
 
     // constants
-    var CORS_URL = 'http://www.corsmirror.com/v1/cors?url=';
+    var CORS_BASE_URL = 'http://www.corsmirror.com/';
+    var CORS_API_URL = CORS_BASE_URL + 'v1/cors?url=';
     var NPM_REGISTRY_URL = 'http://registry.npmjs.com/';
     var NPM_PACKAGE_URL = 'https://www.npmjs.com/package/';
-    var BASE_URL = CORS_URL + NPM_REGISTRY_URL;
+    var BASE_URL = CORS_API_URL + NPM_REGISTRY_URL;
     var DELAY = 300; // delay for debouncing the GET request (in milliseconds)
 
     // cache DOM nodes
@@ -18,6 +19,12 @@
     var inputValue;
     // global timeout for debounce
     var timeout;
+
+    // wake up idle server (if applicable)
+    request({
+        url: CORS_BASE_URL + 'heartbeat',
+        method: 'HEAD'
+    });
 
     // check name when it is typed (with a debounce)
     inputElement.addEventListener('keyup', onKeyup, false);
