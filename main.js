@@ -2,9 +2,9 @@
     'use strict';
 
     // constants
-    var CORS_BASE_URL = 'http://www.corsmirror.com/';
+    var CORS_BASE_URL = 'https://corsmirror.herokuapp.com/';
     var CORS_API_URL = CORS_BASE_URL + 'v1/cors?url=';
-    var NPM_REGISTRY_URL = 'http://registry.npmjs.com/';
+    var NPM_REGISTRY_URL = 'https://registry.npmjs.com/';
     var NPM_PACKAGE_URL = 'https://www.npmjs.com/package/';
     var BASE_URL = CORS_API_URL + NPM_REGISTRY_URL;
     var DELAY = 300; // delay for debouncing the GET request (in milliseconds)
