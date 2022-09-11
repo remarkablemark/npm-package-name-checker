@@ -13,12 +13,12 @@
 
 /* success */
 .green {
-    color: #4caf50 !important;
+  color: #4caf50 !important;
 }
 
 /* failure */
 .red {
-    color: #f44336 !important;
+  color: #f44336 !important;
 }
 
 /* ==========================================================================
@@ -27,85 +27,85 @@
 
 /* center input */
 form {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
 }
 
 /* input takes full width of form */
 .mdl-textfield {
-    width: 100%;
+  width: 100%;
 }
 
 /* styling for input, label, and result */
 .mdl-textfield__input,
 .mdl-textfield__label,
 .npc-result {
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-    font-size: 8vmin;
-    letter-spacing: -.02em;
-    line-height: 1;
-    outline: none;
-    text-align: center;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 8vmin;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  outline: none;
+  text-align: center;
 }
 
 /* loader */
 .mdl-spinner {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 @media only screen and (min-width: 480px) {
-    .mdl-spinner {
-        width: 5vmin;
-        height: 5vmin;
-    }
+  .mdl-spinner {
+    width: 5vmin;
+    height: 5vmin;
+  }
 }
 
 /* styling for loader and result */
 .mdl-spinner,
 .npc-result {
-    position: absolute;
-    margin: 0 auto;
-    right: 0;
-    left: 0;
+  position: absolute;
+  margin: 0 auto;
+  right: 0;
+  left: 0;
 }
 
 /* result text and icon */
 #npc-result-text,
 #npc-result-icon {
-    color: #bbb;
-    font-size: 6vmin;
-    vertical-align: middle;
+  color: #bbb;
+  font-size: 6vmin;
+  vertical-align: middle;
 }
 
 /* result text link */
 #npc-result-text {
-    cursor: default;
-    text-decoration: none;
+  cursor: default;
+  text-decoration: none;
 }
 
 #npc-result-text.hover:hover {
-    color: #aaa;
-    cursor: pointer;
-    border-bottom: 1px solid;
-    text-decoration: none;
+  color: #aaa;
+  cursor: pointer;
+  border-bottom: 1px solid;
+  text-decoration: none;
 }
 
 /* styling for GitHub ribbon */
 #gh-ribbon {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border: 0;
-    opacity: 0.25;
-    transition: opacity .25s ease-in-out;
-    -moz-transition: opacity .25s ease-in-out;
-    -webkit-transition: opacity .25s ease-in-out;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  opacity: 0.25;
+  transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out;
 }
 
 #gh-ribbon:hover {
-    opacity: 1;
+  opacity: 1;
 }
