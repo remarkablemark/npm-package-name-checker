@@ -128,18 +128,15 @@ function setResultIcon(type) {
  * Debounce a function call.
  * https://remysharp.com/2010/07/21/throttling-function-calls
  *
- * @param  {Function} func    - The function to debounce.
- * @param  {Number}   [delay] - The delay in milliseconds.
- * @return {Function}         - The debounced function.
+ * @param  {Function} callback - The function to debounce.
+ * @param  {Number}   [delay]  - The delay in milliseconds.
+ * @return {Function}          - The debounced function.
  */
-function debounce(func, delay) {
-  return function () {
-    const context = this;
-    const args = arguments;
-    // update global timeout
+function debounce(callback, delay) {
+  return function (...args) {
     clearTimeout(timeout);
-    timeout = setTimeout(function () {
-      func.apply(context, args);
+    timeout = setTimeout(() => {
+      callback.apply(this, args);
     }, delay);
   };
 }
