@@ -24,4 +24,33 @@ Resources:
 
 - [validate-npm-package-name](https://github.com/npm/validate-npm-package-name)
 
-_Designed and developed by [remarkablemark](https://github.com/remarkablemark)._
+## Install
+
+Clone the repository:
+
+```sh
+git clone https://github.com/remarkablemark/parcel-vue-example.git
+cd parcel-vue-example
+```
+
+Install the dependencies:
+
+```sh
+npm install
+```
+
+## Available Scripts
+
+In the root directory, you can run:
+
+### `npm start`
+
+Starts the local development server.
+
+### `npm run build`
+
+Builds the web app for production.
+
+### `npm run clean`
+
+Removes the `dist/` folder.
