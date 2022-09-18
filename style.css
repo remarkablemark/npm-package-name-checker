@@ -93,19 +93,3 @@ form {
   border-bottom: 1px solid;
   text-decoration: none;
 }
-
-/* styling for GitHub ribbon */
-#gh-ribbon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: 0;
-  opacity: 0.25;
-  transition: opacity 0.25s ease-in-out;
-  -moz-transition: opacity 0.25s ease-in-out;
-  -webkit-transition: opacity 0.25s ease-in-out;
-}
-
-#gh-ribbon:hover {
-  opacity: 1;
-}
