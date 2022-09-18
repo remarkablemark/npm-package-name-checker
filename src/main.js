@@ -1,21 +1,21 @@
 // constants
-var CORS_BASE_URL = 'https://corsmirror.herokuapp.com/';
-var CORS_API_URL = CORS_BASE_URL + 'v1/cors?url=';
-var NPM_REGISTRY_URL = 'https://registry.npmjs.com/';
-var NPM_PACKAGE_URL = 'https://www.npmjs.com/package/';
-var BASE_URL = CORS_API_URL + NPM_REGISTRY_URL;
-var DELAY = 300; // delay for debouncing the GET request (in milliseconds)
+const CORS_BASE_URL = 'https://corsmirror.herokuapp.com/';
+const CORS_API_URL = CORS_BASE_URL + 'v1/cors?url=';
+const NPM_REGISTRY_URL = 'https://registry.npmjs.com/';
+const NPM_PACKAGE_URL = 'https://www.npmjs.com/package/';
+const BASE_URL = CORS_API_URL + NPM_REGISTRY_URL;
+const DELAY = 300; // delay for debouncing the GET request (in milliseconds)
 
 // cache DOM nodes
-var inputElement = document.getElementById('npc-package-name');
-var loadingElement = document.getElementById('npc-loading');
-var resultTextElement = document.getElementById('npc-result-text');
-var resultIconElement = document.getElementById('npc-result-icon');
+const inputElement = document.getElementById('npc-package-name');
+const loadingElement = document.getElementById('npc-loading');
+const resultTextElement = document.getElementById('npc-result-text');
+const resultIconElement = document.getElementById('npc-result-icon');
 
 // store input value
-var inputValue;
+let inputValue;
 // global timeout for debounce
-var timeout;
+let timeout;
 
 // wake up idle server (if applicable)
 window.reqwest({
@@ -136,8 +136,8 @@ function setResultIcon(type) {
  */
 function debounce(func, delay) {
   return function () {
-    var context = this;
-    var args = arguments;
+    const context = this;
+    const args = arguments;
     // update global timeout
     clearTimeout(timeout);
     timeout = setTimeout(function () {
@@ -152,7 +152,7 @@ function debounce(func, delay) {
  * @param {Function} event - The event handler.
  */
 function onKeyup() {
-  var packageName = inputElement.value.toLowerCase();
+  const packageName = inputElement.value.toLowerCase();
 
   // blank input
   if (!packageName) {
