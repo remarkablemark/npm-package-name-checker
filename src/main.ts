@@ -6,7 +6,9 @@ const BASE_URL = CORS_API_URL + NPM_REGISTRY_URL;
 const DELAY = 300; // delay for debouncing the GET request (in milliseconds)
 
 // cache DOM nodes
-const inputElement = document.getElementById('npc-package-name');
+const inputElement = document.getElementById(
+  'npc-package-name'
+) as HTMLInputElement;
 const loadingElement = document.getElementById('npc-loading');
 const resultTextElement = document.getElementById('npc-result-text');
 const resultIconElement = document.getElementById('npc-result-icon');
@@ -220,3 +222,5 @@ function onKeyup() {
     }
   }, DELAY)();
 }
+
+export {};
