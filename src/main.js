@@ -18,7 +18,7 @@ var inputValue;
 var timeout;
 
 // wake up idle server (if applicable)
-reqwest({
+window.reqwest({
   url: CORS_BASE_URL + 'heartbeat',
   method: 'HEAD',
 });
@@ -149,9 +149,9 @@ function debounce(func, delay) {
 /**
  * Handle `keyup` event.
  *
- * @param {Function} - The event handler.
+ * @param {Function} event - The event handler.
  */
-function onKeyup(event) {
+function onKeyup() {
   var packageName = inputElement.value.toLowerCase();
 
   // blank input
@@ -185,10 +185,11 @@ function onKeyup(event) {
 
   // debounce the request to prevent it from taxing the server
   debounce(function () {
-    reqwest({
-      url: BASE_URL + encodeURIComponent(packageName),
-      method: 'GET',
-    })
+    window
+      .reqwest({
+        url: BASE_URL + encodeURIComponent(packageName),
+        method: 'GET',
+      })
       .then(function (response) {
         // package is unpublished
         if (response.time.unpublished instanceof Object) {
@@ -207,6 +208,7 @@ function onKeyup(event) {
         if (error.status >= 500) {
           setProperty(resultTextElement, 'text', 'Server error.');
           setResultIcon('broken');
+          // eslint-disable-next-line no-console
           console.error(error, message);
         }
       })

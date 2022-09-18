@@ -4,10 +4,19 @@
   "scripts": {
     "build": "parcel build",
     "clean": "rm -rf dist",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "postinstall": "husky install",
     "start": "parcel --open"
   },
-  "browserslist": "> 0.5%, last 2 versions, not dead",
-  "dependencies": {
-    "parcel": "^2.7.0"
-  }
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "parcel": "^2.7.0",
+    "prettier": "^2.7.1"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead"
 }
