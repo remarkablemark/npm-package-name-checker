@@ -29,8 +29,8 @@ Resources:
 Clone the repository:
 
 ```sh
-git clone https://github.com/remarkablemark/parcel-vue-example.git
-cd parcel-vue-example
+git clone https://github.com/remarkablemark/npm-package-name-checker.git
+cd npm-package-name-checker
 ```
 
 Install the dependencies:
