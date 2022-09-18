@@ -1,0 +1,13 @@
+{
+  "version": "1.2.1",
+  "source": "src/index.html",
+  "scripts": {
+    "build": "parcel build",
+    "clean": "rm -rf dist",
+    "start": "parcel --open"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "dependencies": {
+    "parcel": "^2.7.0"
+  }
+}
