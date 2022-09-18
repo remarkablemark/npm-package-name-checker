@@ -2,6 +2,7 @@
   "compilerOptions": {
     "isolatedModules": true,
     "noEmit": true,
+    "noImplicitAny": true,
     "strictNullChecks": true
   },
   "include": ["src"]

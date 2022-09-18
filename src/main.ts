@@ -9,14 +9,16 @@ const DELAY = 300; // delay for debouncing the GET request (in milliseconds)
 const inputElement = document.getElementById(
   'npc-package-name'
 ) as HTMLInputElement;
-const loadingElement = document.getElementById('npc-loading');
-const resultTextElement = document.getElementById('npc-result-text');
-const resultIconElement = document.getElementById('npc-result-icon');
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+const loadingElement = document.getElementById('npc-loading')!;
+const resultTextElement = document.getElementById('npc-result-text')!;
+const resultIconElement = document.getElementById('npc-result-icon')!;
+/* eslint-enable @typescript-eslint/no-non-null-assertion */
 
 // store input value
-let inputValue;
+let inputValue: string;
 // global timeout for debounce
-let timeout;
+let timeout: ReturnType<typeof setTimeout>;
 
 // wake up idle server
 fetch(`${CORS_BASE_URL}heartbeat`, { method: 'HEAD' });
@@ -31,7 +33,7 @@ inputElement.addEventListener('keyup', onKeyup, false);
  * @param  {String}      className - The class.
  * @return {HTMLElement}           - The element.
  */
-function addClass(element, className) {
+function addClass(element: HTMLElement, className: string) {
   if (element.className.indexOf(className) === -1) {
     element.className += ' ' + className;
   }
@@ -45,7 +47,7 @@ function addClass(element, className) {
  * @param  {String}      className - The class.
  * @return {HTMLElement}           - The element.
  */
-function removeClass(element, className) {
+function removeClass(element: HTMLElement, className: string) {
   if (element.className.indexOf(className) > -1) {
     element.className = element.className.replace(className, '').trim();
   }
@@ -60,23 +62,23 @@ function removeClass(element, className) {
  * @param  {String}      value    - The value.
  * @return {HTMLElement}          - The element.
  */
-function setProperty(element, property, value) {
+function setProperty(
+  element: HTMLElement,
+  property: keyof HTMLElement | keyof HTMLAnchorElement,
+  value: string
+) {
   if (!element) {
     throw new Error('The first argument must be an element');
   }
-  switch (property) {
-    case 'text':
-      if (element.textContent !== value) {
-        element.textContent = value;
-      } else if (element.innerText !== value) {
-        element.innerText = value;
-      }
-      break;
-    default:
-      if (element[property] !== value) {
-        element[property] = value;
-      }
+
+  /* eslint-disable @typescript-eslint/ban-ts-comment */
+  // @ts-ignore
+  if (element[property] !== value) {
+    // @ts-ignore
+    element[property] = value;
   }
+  /* eslint-enable @typescript-eslint/ban-ts-comment */
+
   return element;
 }
 
@@ -87,7 +89,7 @@ function setProperty(element, property, value) {
  * @param  {String}  packageName - The package name.
  * @return {Boolean}
  */
-function isValidPackageName(packageName) {
+function isValidPackageName(packageName: string) {
   if (/^[a-zA-Z0-9_-]+$/.test(packageName)) {
     return packageName[0] !== '_';
   }
@@ -99,27 +101,27 @@ function isValidPackageName(packageName) {
  *
  * @param {String} type - The display type.
  */
-function setResultIcon(type) {
+function setResultIcon(type: string) {
   switch (type) {
     case 'error':
       removeClass(resultIconElement, 'green');
       addClass(resultIconElement, 'red');
-      setProperty(resultIconElement, 'text', 'cancel');
+      setProperty(resultIconElement, 'textContent', 'cancel');
       return;
     case 'success':
       removeClass(resultIconElement, 'red');
       addClass(resultIconElement, 'green');
-      setProperty(resultIconElement, 'text', 'check_circle');
+      setProperty(resultIconElement, 'textContent', 'check_circle');
       return;
     case 'broken':
       removeClass(resultIconElement, 'green');
       addClass(resultIconElement, 'red');
-      setProperty(resultIconElement, 'text', 'report_problem');
+      setProperty(resultIconElement, 'textContent', 'report_problem');
       return;
     default:
       removeClass(resultIconElement, 'red');
       removeClass(resultIconElement, 'green');
-      setProperty(resultIconElement, 'text', 'search');
+      setProperty(resultIconElement, 'textContent', 'search');
       return;
   }
 }
@@ -132,8 +134,9 @@ function setResultIcon(type) {
  * @param  {Number}   [delay]  - The delay in milliseconds.
  * @return {Function}          - The debounced function.
  */
-function debounce(callback, delay) {
-  return function (...args) {
+function debounce(callback: () => void, delay: number) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return function (...args: any[]) {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       callback.apply(this, args);
@@ -152,7 +155,7 @@ function onKeyup() {
   // blank input
   if (!packageName) {
     removeClass(loadingElement, 'is-active');
-    setProperty(resultTextElement, 'text', '');
+    setProperty(resultTextElement, 'textContent', '');
     setResultIcon('default');
     inputValue = '';
     return;
@@ -168,14 +171,14 @@ function onKeyup() {
   // invalid package name
   if (!isValidPackageName(packageName)) {
     removeClass(loadingElement, 'is-active');
-    setProperty(resultTextElement, 'text', 'Invalid name.');
+    setProperty(resultTextElement, 'textContent', 'Invalid name.');
     setResultIcon('error');
     return;
   }
 
   // clear result and display loading spinner
-  setProperty(resultTextElement, 'text', '');
-  setProperty(resultIconElement, 'text', '');
+  setProperty(resultTextElement, 'textContent', '');
+  setProperty(resultIconElement, 'textContent', '');
   addClass(loadingElement, 'is-active');
 
   debounce(async () => {
@@ -192,14 +195,14 @@ function onKeyup() {
       data = await response.json();
 
       // package name is taken
-      setProperty(resultTextElement, 'text', 'Name is taken.');
+      setProperty(resultTextElement, 'textContent', 'Name is taken.');
       setProperty(resultTextElement, 'href', NPM_PACKAGE_URL + packageName);
       setProperty(resultTextElement, 'target', '_blank');
       addClass(resultTextElement, 'hover');
       setResultIcon('error');
     } catch (error) {
       if (error.status >= 500) {
-        setProperty(resultTextElement, 'text', 'Server error.');
+        setProperty(resultTextElement, 'textContent', 'Server error.');
         setResultIcon('broken');
         // eslint-disable-next-line no-console
         console.error(error);
@@ -210,8 +213,8 @@ function onKeyup() {
     removeClass(loadingElement, 'is-active');
 
     // package is available or unpublished
-    if (response.status === 404 || data.time.unpublished) {
-      setProperty(resultTextElement, 'text', 'Name is available.');
+    if (response?.status === 404 || data?.time?.unpublished) {
+      setProperty(resultTextElement, 'textContent', 'Name is available.');
       setResultIcon('success');
       setProperty(resultTextElement, 'href', '#');
       setProperty(resultTextElement, 'target', '');
