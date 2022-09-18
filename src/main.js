@@ -1,4 +1,3 @@
-// constants
 const CORS_BASE_URL = 'https://corsmirror.herokuapp.com/';
 const CORS_API_URL = CORS_BASE_URL + 'v1/cors?url=';
 const NPM_REGISTRY_URL = 'https://registry.npmjs.com/';
@@ -17,11 +16,8 @@ let inputValue;
 // global timeout for debounce
 let timeout;
 
-// wake up idle server (if applicable)
-window.reqwest({
-  url: CORS_BASE_URL + 'heartbeat',
-  method: 'HEAD',
-});
+// wake up idle server
+fetch(`${CORS_BASE_URL}heartbeat`, { method: 'HEAD' });
 
 // check name when it is typed (with a debounce)
 inputElement.addEventListener('keyup', onKeyup, false);
@@ -183,47 +179,44 @@ function onKeyup() {
   setProperty(resultIconElement, 'text', '');
   addClass(loadingElement, 'is-active');
 
-  // debounce the request to prevent it from taxing the server
-  debounce(function () {
-    window
-      .reqwest({
-        url: BASE_URL + encodeURIComponent(packageName),
+  debounce(async () => {
+    let response;
+    let data;
+
+    try {
+      response = await fetch(BASE_URL + encodeURIComponent(packageName), {
         method: 'GET',
-      })
-      .then(function (response) {
-        // package is unpublished
-        if (response.time.unpublished instanceof Object) {
-          return { status: 404 };
-        }
-
-        // package name is taken
-        setProperty(resultTextElement, 'text', 'Name is taken.');
-        setProperty(resultTextElement, 'href', NPM_PACKAGE_URL + packageName);
-        setProperty(resultTextElement, 'target', '_blank');
-        addClass(resultTextElement, 'hover');
-        setResultIcon('error');
-      })
-      .fail(function (error, message) {
-        // server error
-        if (error.status >= 500) {
-          setProperty(resultTextElement, 'text', 'Server error.');
-          setResultIcon('broken');
-          // eslint-disable-next-line no-console
-          console.error(error, message);
-        }
-      })
-      .always(function (result) {
-        // remove loading spinner
-        removeClass(loadingElement, 'is-active');
-
-        // package is available
-        if (result && result.status === 404) {
-          setProperty(resultTextElement, 'text', 'Name is available.');
-          setResultIcon('success');
-          setProperty(resultTextElement, 'href', '#');
-          setProperty(resultTextElement, 'target', '');
-          removeClass(resultTextElement, 'hover');
-        }
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      data = await response.json();
+
+      // package name is taken
+      setProperty(resultTextElement, 'text', 'Name is taken.');
+      setProperty(resultTextElement, 'href', NPM_PACKAGE_URL + packageName);
+      setProperty(resultTextElement, 'target', '_blank');
+      addClass(resultTextElement, 'hover');
+      setResultIcon('error');
+    } catch (error) {
+      if (error.status >= 500) {
+        setProperty(resultTextElement, 'text', 'Server error.');
+        setResultIcon('broken');
+        // eslint-disable-next-line no-console
+        console.error(error);
+      }
+    }
+
+    // remove loading spinner
+    removeClass(loadingElement, 'is-active');
+
+    // package is available or unpublished
+    if (response.status === 404 || data.time.unpublished) {
+      setProperty(resultTextElement, 'text', 'Name is available.');
+      setResultIcon('success');
+      setProperty(resultTextElement, 'href', '#');
+      setProperty(resultTextElement, 'target', '');
+      removeClass(resultTextElement, 'hover');
+    }
   }, DELAY)();
 }

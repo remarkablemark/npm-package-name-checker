@@ -12,7 +12,6 @@ Design:
 
 API:
 
-- [reqwest](https://github.com/ded/reqwest)
 - [CORSmirror](https://github.com/CORSmirror/CORSmirror)
 - [npm-registry](https://docs.npmjs.com/misc/registry)
 
