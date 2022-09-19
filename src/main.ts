@@ -27,11 +27,11 @@ fetch(`${CORSMIRROR_URL}/healthcheck`, { method: 'HEAD' });
 inputElement.addEventListener('keyup', onKeyup, false);
 
 /**
- * Add class to DOM element.
+ * Adds class to DOM element.
  *
- * @param  {HTMLElement} element   - The element.
- * @param  {String}      className - The class.
- * @return {HTMLElement}           - The element.
+ * @param element - The element.
+ * @param className - The class.
+ * @returns - The element.
  */
 function addClass(element: HTMLElement, className: string) {
   if (element.className.indexOf(className) === -1) {
@@ -41,11 +41,11 @@ function addClass(element: HTMLElement, className: string) {
 }
 
 /**
- * Remove class from DOM element.
+ * Removes class from DOM element.
  *
- * @param  {HTMLElement} elemenet  - The element.
- * @param  {String}      className - The class.
- * @return {HTMLElement}           - The element.
+ * @param element - The element.
+ * @param className - The class.
+ * @returns - The element.
  */
 function removeClass(element: HTMLElement, className: string) {
   if (element.className.indexOf(className) > -1) {
@@ -55,12 +55,12 @@ function removeClass(element: HTMLElement, className: string) {
 }
 
 /**
- * Set property for DOM element.
+ * Sets property for DOM element.
  *
- * @param  {HTMLElement} element  - The element.
- * @param  {String}      property - The property.
- * @param  {String}      value    - The value.
- * @return {HTMLElement}          - The element.
+ * @param element - The element.
+ * @param property - The property.
+ * @param value - The value.
+ * @returns - The element.
  */
 function setProperty(
   element: HTMLElement,
@@ -84,12 +84,12 @@ function setProperty(
 
 /**
  * Check if npm package name is valid.
+ *
  * https://github.com/npm/validate-npm-package-name#naming-rules
  *
- * @param  {String}  packageName - The package name.
- * @return {Boolean}
+ * @param packageName - The package name.
  */
-function isValidPackageName(packageName: string) {
+function isValidPackageName(packageName: string): boolean {
   if (/^[a-zA-Z0-9_-]+$/.test(packageName)) {
     return packageName[0] !== '_';
   }
@@ -97,44 +97,48 @@ function isValidPackageName(packageName: string) {
 }
 
 /**
- * Change result icon display type (success, error, default).
+ * Changes result icon display type (success, error, default).
  *
- * @param {String} type - The display type.
+ * @param type - The display type.
  */
-function setResultIcon(type: string) {
+function setResultIcon(type: string): void {
   switch (type) {
     case 'error':
       removeClass(resultIconElement, 'green');
       addClass(resultIconElement, 'red');
       setProperty(resultIconElement, 'textContent', 'cancel');
-      return;
+      break;
+
     case 'success':
       removeClass(resultIconElement, 'red');
       addClass(resultIconElement, 'green');
       setProperty(resultIconElement, 'textContent', 'check_circle');
-      return;
+      break;
+
     case 'broken':
       removeClass(resultIconElement, 'green');
       addClass(resultIconElement, 'red');
       setProperty(resultIconElement, 'textContent', 'report_problem');
-      return;
+      break;
+
     default:
       removeClass(resultIconElement, 'red');
       removeClass(resultIconElement, 'green');
       setProperty(resultIconElement, 'textContent', 'search');
-      return;
+      break;
   }
 }
 
 /**
- * Debounce a function call.
+ * Debounces a function call.
+ *
  * https://remysharp.com/2010/07/21/throttling-function-calls
  *
- * @param  {Function} callback - The function to debounce.
- * @param  {Number}   [delay]  - The delay in milliseconds.
- * @return {Function}          - The debounced function.
+ * @param callback - The function to debounce.
+ * @param delay - The delay in milliseconds.
+ * @returns - The debounced function.
  */
-function debounce(callback: () => void, delay: number) {
+function debounce(callback: () => void, delay?: number) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (...args: any[]) {
     clearTimeout(timeout);
@@ -145,11 +149,11 @@ function debounce(callback: () => void, delay: number) {
 }
 
 /**
- * Handle `keyup` event.
+ * Handles `keyup` event.
  *
- * @param {Function} event - The event handler.
+ * @param event - The event handler.
  */
-function onKeyup() {
+function onKeyup(): void {
   const packageName = inputElement.value.toLowerCase();
 
   // blank input
