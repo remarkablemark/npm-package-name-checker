@@ -1,7 +1,7 @@
-const CORS_BASE_URL = 'https://corsmirror.herokuapp.com/';
-const CORS_API_URL = CORS_BASE_URL + 'v1/cors?url=';
-const NPM_REGISTRY_URL = 'https://registry.npmjs.com/';
-const NPM_PACKAGE_URL = 'https://www.npmjs.com/package/';
+const CORS_BASE_URL = 'https://corsmirror.herokuapp.com';
+const CORS_API_URL = CORS_BASE_URL + '/v1/cors?url=';
+const NPM_REGISTRY_URL = 'https://registry.npmjs.com';
+const NPM_PACKAGE_URL = 'https://www.npmjs.com/package';
 const BASE_URL = CORS_API_URL + NPM_REGISTRY_URL;
 const DELAY = 300; // delay for debouncing the GET request (in milliseconds)
 
@@ -21,7 +21,7 @@ let inputValue: string;
 let timeout: ReturnType<typeof setTimeout>;
 
 // wake up idle server
-fetch(`${CORS_BASE_URL}heartbeat`, { method: 'HEAD' });
+fetch(`${CORS_BASE_URL}/heartbeat`, { method: 'HEAD' });
 
 // check name when it is typed (with a debounce)
 inputElement.addEventListener('keyup', onKeyup, false);
@@ -186,7 +186,7 @@ function onKeyup() {
     let data;
 
     try {
-      response = await fetch(BASE_URL + encodeURIComponent(packageName), {
+      response = await fetch(`${BASE_URL}/${encodeURIComponent(packageName)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -196,7 +196,11 @@ function onKeyup() {
 
       // package name is taken
       setProperty(resultTextElement, 'textContent', 'Name is taken.');
-      setProperty(resultTextElement, 'href', NPM_PACKAGE_URL + packageName);
+      setProperty(
+        resultTextElement,
+        'href',
+        `${NPM_PACKAGE_URL}/${packageName}`
+      );
       setProperty(resultTextElement, 'target', '_blank');
       addClass(resultTextElement, 'hover');
       setResultIcon('error');
