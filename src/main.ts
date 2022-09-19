@@ -1,3 +1,12 @@
+import {
+  addClass,
+  debounce,
+  isValidPackageName,
+  removeClass,
+  setProperty,
+  setResultIcon,
+} from './utils';
+
 const CORSMIRROR_URL = 'https://corsmirror.onrender.com';
 const NPM_REGISTRY_URL = 'https://registry.npmjs.com';
 const NPM_PACKAGE_URL = 'https://www.npmjs.com/package';
@@ -17,136 +26,12 @@ const resultIconElement = document.getElementById('npc-result-icon')!;
 
 // store input value
 let inputValue: string;
-// global timeout for debounce
-let timeout: ReturnType<typeof setTimeout>;
 
 // wake up idle server
 fetch(`${CORSMIRROR_URL}/healthcheck`, { method: 'HEAD' });
 
 // check name when it is typed (with a debounce)
 inputElement.addEventListener('keyup', onKeyup, false);
-
-/**
- * Adds class to DOM element.
- *
- * @param element - The element.
- * @param className - The class.
- * @returns - The element.
- */
-function addClass(element: HTMLElement, className: string) {
-  if (element.className.indexOf(className) === -1) {
-    element.className += ' ' + className;
-  }
-  return element;
-}
-
-/**
- * Removes class from DOM element.
- *
- * @param element - The element.
- * @param className - The class.
- * @returns - The element.
- */
-function removeClass(element: HTMLElement, className: string) {
-  if (element.className.indexOf(className) > -1) {
-    element.className = element.className.replace(className, '').trim();
-  }
-  return element;
-}
-
-/**
- * Sets property for DOM element.
- *
- * @param element - The element.
- * @param property - The property.
- * @param value - The value.
- * @returns - The element.
- */
-function setProperty(
-  element: HTMLElement,
-  property: keyof HTMLElement | keyof HTMLAnchorElement,
-  value: string
-) {
-  if (!element) {
-    throw new Error('The first argument must be an element');
-  }
-
-  /* eslint-disable @typescript-eslint/ban-ts-comment */
-  // @ts-ignore
-  if (element[property] !== value) {
-    // @ts-ignore
-    element[property] = value;
-  }
-  /* eslint-enable @typescript-eslint/ban-ts-comment */
-
-  return element;
-}
-
-/**
- * Check if npm package name is valid.
- *
- * https://github.com/npm/validate-npm-package-name#naming-rules
- *
- * @param packageName - The package name.
- */
-function isValidPackageName(packageName: string): boolean {
-  if (/^[a-zA-Z0-9_-]+$/.test(packageName)) {
-    return packageName[0] !== '_';
-  }
-  return false;
-}
-
-/**
- * Changes result icon display type (success, error, default).
- *
- * @param type - The display type.
- */
-function setResultIcon(type: string): void {
-  switch (type) {
-    case 'error':
-      removeClass(resultIconElement, 'green');
-      addClass(resultIconElement, 'red');
-      setProperty(resultIconElement, 'textContent', 'cancel');
-      break;
-
-    case 'success':
-      removeClass(resultIconElement, 'red');
-      addClass(resultIconElement, 'green');
-      setProperty(resultIconElement, 'textContent', 'check_circle');
-      break;
-
-    case 'broken':
-      removeClass(resultIconElement, 'green');
-      addClass(resultIconElement, 'red');
-      setProperty(resultIconElement, 'textContent', 'report_problem');
-      break;
-
-    default:
-      removeClass(resultIconElement, 'red');
-      removeClass(resultIconElement, 'green');
-      setProperty(resultIconElement, 'textContent', 'search');
-      break;
-  }
-}
-
-/**
- * Debounces a function call.
- *
- * https://remysharp.com/2010/07/21/throttling-function-calls
- *
- * @param callback - The function to debounce.
- * @param delay - The delay in milliseconds.
- * @returns - The debounced function.
- */
-function debounce(callback: () => void, delay?: number) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return function (...args: any[]) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      callback.apply(this, args);
-    }, delay);
-  };
-}
 
 /**
  * Handles `keyup` event.
@@ -160,7 +45,7 @@ function onKeyup(): void {
   if (!packageName) {
     removeClass(loadingElement, 'is-active');
     setProperty(resultTextElement, 'textContent', '');
-    setResultIcon('default');
+    setResultIcon(resultIconElement, 'default');
     inputValue = '';
     return;
   }
@@ -176,7 +61,7 @@ function onKeyup(): void {
   if (!isValidPackageName(packageName)) {
     removeClass(loadingElement, 'is-active');
     setProperty(resultTextElement, 'textContent', 'Invalid name.');
-    setResultIcon('error');
+    setResultIcon(resultIconElement, 'error');
     return;
   }
 
@@ -210,11 +95,11 @@ function onKeyup(): void {
       );
       setProperty(resultTextElement, 'target', '_blank');
       addClass(resultTextElement, 'hover');
-      setResultIcon('error');
+      setResultIcon(resultIconElement, 'error');
     } catch (error) {
       if (error.status >= 500) {
         setProperty(resultTextElement, 'textContent', 'Server error.');
-        setResultIcon('broken');
+        setResultIcon(resultIconElement, 'broken');
         // eslint-disable-next-line no-console
         console.error(error);
       }
@@ -226,12 +111,10 @@ function onKeyup(): void {
     // package is available or unpublished
     if (response?.status === 404 || data?.time?.unpublished) {
       setProperty(resultTextElement, 'textContent', 'Name is available.');
-      setResultIcon('success');
+      setResultIcon(resultIconElement, 'success');
       setProperty(resultTextElement, 'href', '#');
       setProperty(resultTextElement, 'target', '');
       removeClass(resultTextElement, 'hover');
     }
   }, DELAY)();
 }
-
-export {};
