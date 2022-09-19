@@ -1,9 +1,9 @@
-const CORS_BASE_URL = 'https://corsmirror.herokuapp.com';
-const CORS_API_URL = CORS_BASE_URL + '/v1/cors?url=';
+const CORSMIRROR_URL = 'https://corsmirror.onrender.com';
 const NPM_REGISTRY_URL = 'https://registry.npmjs.com';
 const NPM_PACKAGE_URL = 'https://www.npmjs.com/package';
-const BASE_URL = CORS_API_URL + NPM_REGISTRY_URL;
-const DELAY = 300; // delay for debouncing the GET request (in milliseconds)
+const REQUEST_URL = `${CORSMIRROR_URL}/v1/cors?url=${NPM_REGISTRY_URL}`;
+// delay for debouncing the GET request (in milliseconds)
+const DELAY = 300;
 
 // cache DOM nodes
 const inputElement = document.getElementById(
@@ -21,7 +21,7 @@ let inputValue: string;
 let timeout: ReturnType<typeof setTimeout>;
 
 // wake up idle server
-fetch(`${CORS_BASE_URL}/heartbeat`, { method: 'HEAD' });
+fetch(`${CORSMIRROR_URL}/healthcheck`, { method: 'HEAD' });
 
 // check name when it is typed (with a debounce)
 inputElement.addEventListener('keyup', onKeyup, false);
@@ -186,12 +186,15 @@ function onKeyup() {
     let data;
 
     try {
-      response = await fetch(`${BASE_URL}/${encodeURIComponent(packageName)}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      response = await fetch(
+        `${REQUEST_URL}/${encodeURIComponent(packageName)}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       data = await response.json();
 
       // package name is taken
