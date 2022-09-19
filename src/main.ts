@@ -1,4 +1,10 @@
 import {
+  CORSMIRROR_URL,
+  DEBOUNCE_DELAY_IN_MILLISECONDS,
+  NPM_PACKAGE_URL,
+  REQUEST_URL,
+} from './constants';
+import {
   addClass,
   debounce,
   isValidPackageName,
@@ -6,13 +12,6 @@ import {
   setProperty,
   setResultIcon,
 } from './utils';
-
-const CORSMIRROR_URL = 'https://corsmirror.onrender.com';
-const NPM_REGISTRY_URL = 'https://registry.npmjs.com';
-const NPM_PACKAGE_URL = 'https://www.npmjs.com/package';
-const REQUEST_URL = `${CORSMIRROR_URL}/v1/cors?url=${NPM_REGISTRY_URL}`;
-// delay for debouncing the GET request (in milliseconds)
-const DELAY = 300;
 
 // cache DOM nodes
 const inputElement = document.getElementById(
@@ -116,5 +115,5 @@ function onKeyup(): void {
       setProperty(resultTextElement, 'target', '');
       removeClass(resultTextElement, 'hover');
     }
-  }, DELAY)();
+  }, DEBOUNCE_DELAY_IN_MILLISECONDS)();
 }
