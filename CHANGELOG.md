@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.3.0...v1.4.0) (2022-09-19)
+
+
+### Features
+
+* replace Heroku with Render ([d759b3f](https://github.com/remarkablemark/npm-package-name-checker/commit/d759b3ff28b569c973b45d95cb09fa1dcdd3acd6))
+
 ## [1.3.0](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.2.1...v1.3.0) (2022-09-18)
 
 ### Features
