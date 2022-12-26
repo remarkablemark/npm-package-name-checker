@@ -18,6 +18,7 @@ API:
 Hosting:
 
 - [GitHub Pages](https://pages.github.com)
+- [Replit](https://replit.com/@remarkablemark/CORSmirror)
 
 Resources:
 
