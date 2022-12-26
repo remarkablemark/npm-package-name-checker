@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.4.0...v1.4.1) (2022-12-26)
+
+
+### Performance Improvements
+
+* **constants:** replace render with replit ([6a154f4](https://github.com/remarkablemark/npm-package-name-checker/commit/6a154f4bc79a415f3286abc6e6501304dcffc8b1))
+
 ## [1.4.0](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.3.0...v1.4.0) (2022-09-19)
 
 
