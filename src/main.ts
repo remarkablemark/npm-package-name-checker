@@ -1,5 +1,4 @@
 import {
-  CORSMIRROR_URL,
   DEBOUNCE_DELAY_IN_MILLISECONDS,
   NPM_PACKAGE_URL,
   REQUEST_URL,
@@ -17,6 +16,7 @@ import {
 const inputElement = document.getElementById(
   'npc-package-name'
 ) as HTMLInputElement;
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 const loadingElement = document.getElementById('npc-loading')!;
 const resultTextElement = document.getElementById('npc-result-text')!;
@@ -25,9 +25,6 @@ const resultIconElement = document.getElementById('npc-result-icon')!;
 
 // store input value
 let inputValue: string;
-
-// wake up idle server
-fetch(`${CORSMIRROR_URL}/healthcheck`, { method: 'HEAD' });
 
 // check name when it is typed (with a debounce)
 inputElement.addEventListener('keyup', onKeyup, false);
@@ -77,7 +74,6 @@ function onKeyup(): void {
       response = await fetch(
         `${REQUEST_URL}/${encodeURIComponent(packageName)}`,
         {
-          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
