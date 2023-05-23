@@ -12,13 +12,12 @@ Design:
 
 API:
 
-- [CORSmirror](https://github.com/CORSmirror/CORSmirror)
+- [CORSmirror](https://corsmirror.com/)
 - [npm-registry](https://docs.npmjs.com/misc/registry)
 
 Hosting:
 
-- [GitHub Pages](https://pages.github.com)
-- [Replit](https://replit.com/@remarkablemark/CORSmirror)
+- [GitHub Pages](https://pages.github.com/)
 
 Resources:
 
