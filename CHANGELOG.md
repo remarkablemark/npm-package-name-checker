@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.5.0](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.4.1...v1.5.0) (2023-05-23)
+
+
+### Features
+
+* replace replit with corsmirror ([b569dc2](https://github.com/remarkablemark/npm-package-name-checker/commit/b569dc20aa37f7e183189c5ec02f43af335410f1))
+
+
+### Bug Fixes
+
+* **constants:** fix corsmirror domain ([57704d4](https://github.com/remarkablemark/npm-package-name-checker/commit/57704d4bdb9addf78aca81af75ef7a45dac59651))
+
 ## [1.4.1](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.4.0...v1.4.1) (2022-12-26)
 
 
