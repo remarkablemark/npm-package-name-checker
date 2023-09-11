@@ -14,7 +14,7 @@ import {
 
 // cache DOM nodes
 const inputElement = document.getElementById(
-  'npc-package-name'
+  'npc-package-name',
 ) as HTMLInputElement;
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
@@ -77,7 +77,7 @@ function onKeyup(): void {
           headers: {
             'Content-Type': 'application/json',
           },
-        }
+        },
       );
       data = await response.json();
 
@@ -86,7 +86,7 @@ function onKeyup(): void {
       setProperty(
         resultTextElement,
         'href',
-        `${NPM_PACKAGE_URL}/${packageName}`
+        `${NPM_PACKAGE_URL}/${packageName}`,
       );
       setProperty(resultTextElement, 'target', '_blank');
       addClass(resultTextElement, 'hover');

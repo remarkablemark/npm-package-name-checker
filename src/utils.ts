@@ -37,7 +37,7 @@ export function removeClass(element: HTMLElement, className: string) {
 export function setProperty(
   element: HTMLElement,
   property: keyof HTMLElement | keyof HTMLAnchorElement,
-  value: string
+  value: string,
 ) {
   if (!element) {
     throw new Error('The first argument must be an element');
