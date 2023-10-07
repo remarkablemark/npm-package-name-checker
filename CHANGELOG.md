@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.5.0...v1.5.1) (2023-10-07)
+
+
+### Bug Fixes
+
+* migrate to Google Analytics 4 (GA4) ([e39aa8a](https://github.com/remarkablemark/npm-package-name-checker/commit/e39aa8acbd21617d7f49c3c31815087b79e625ec))
+
 ## [1.5.0](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.4.1...v1.5.0) (2023-05-23)
 
 
