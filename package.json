@@ -22,7 +22,7 @@
     "lint-staged": "^15.2.0",
     "parcel": "^2.10.3",
     "prettier": "^3.1.0",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead"
 }
