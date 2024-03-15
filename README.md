@@ -1,5 +1,6 @@
 # npm package name checker
 
+![release](https://img.shields.io/github/v/release/remarkablemark/npm-package-name-checker)
 [![build](https://github.com/remarkablemark/npm-package-name-checker/actions/workflows/build.yml/badge.svg)](https://github.com/remarkablemark/npm-package-name-checker/actions/workflows/build.yml)
 
 :mag_right: Check if an [npm](https://www.npmjs.com) package name is available: https://b.remarkabl.org/npm-package-name-checker
