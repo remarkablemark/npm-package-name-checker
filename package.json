@@ -19,7 +19,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "eslint-plugin-tsdoc": "^0.2.17",
     "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
+    "lint-staged": "^15.2.5",
     "parcel": "^2.12.0",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
