@@ -36,7 +36,6 @@ jobs:
         run: npm run build -- --public-url https://remarkablemark.org/${{ github.event.repository.name }}
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: remarkablemark/gitploy-action@v1
         with:
-          branch: gh-pages
-          folder: dist
+          directory: dist
