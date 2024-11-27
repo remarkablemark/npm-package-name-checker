@@ -4,7 +4,6 @@ on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -14,20 +13,11 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/package.json', './package.json') }}
-        id: cache
+          cache: npm
+          node-version-file: .nvmrc
 
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install --prefer-offline
+        run: npm ci --prefer-offline
 
       - name: Lint commit message
         run: npx commitlint --from=HEAD~1
