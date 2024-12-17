@@ -20,7 +20,7 @@
     "eslint-plugin-tsdoc": "^0.4.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
-    "parcel": "^2.13.2",
+    "parcel": "^2.13.3",
     "prettier": "^3.4.2",
     "typescript": "^5.7.2"
   },
