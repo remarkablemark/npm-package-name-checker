@@ -1,44 +1,44 @@
 # Changelog
 
-## [1.5.2](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.5.1...v1.5.2) (2023-10-14)
+## [1.5.3](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.5.2...v1.5.3) (2025-05-26)
 
+### Miscellaneous Chores
+
+- release 1.5.3 ([996f740](https://github.com/remarkablemark/npm-package-name-checker/commit/996f7408e7b3de2128d4cffdc5613d67247102d8))
+
+## [1.5.2](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.5.1...v1.5.2) (2023-10-14)
 
 ### Bug Fixes
 
-* **index:** fix Google tag ([56c373a](https://github.com/remarkablemark/npm-package-name-checker/commit/56c373aacfb1eded4b4991cee8c64cdd93703b88))
+- **index:** fix Google tag ([56c373a](https://github.com/remarkablemark/npm-package-name-checker/commit/56c373aacfb1eded4b4991cee8c64cdd93703b88))
 
 ## [1.5.1](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.5.0...v1.5.1) (2023-10-07)
 
-
 ### Bug Fixes
 
-* migrate to Google Analytics 4 (GA4) ([e39aa8a](https://github.com/remarkablemark/npm-package-name-checker/commit/e39aa8acbd21617d7f49c3c31815087b79e625ec))
+- migrate to Google Analytics 4 (GA4) ([e39aa8a](https://github.com/remarkablemark/npm-package-name-checker/commit/e39aa8acbd21617d7f49c3c31815087b79e625ec))
 
 ## [1.5.0](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.4.1...v1.5.0) (2023-05-23)
 
-
 ### Features
 
-* replace replit with corsmirror ([b569dc2](https://github.com/remarkablemark/npm-package-name-checker/commit/b569dc20aa37f7e183189c5ec02f43af335410f1))
-
+- replace replit with corsmirror ([b569dc2](https://github.com/remarkablemark/npm-package-name-checker/commit/b569dc20aa37f7e183189c5ec02f43af335410f1))
 
 ### Bug Fixes
 
-* **constants:** fix corsmirror domain ([57704d4](https://github.com/remarkablemark/npm-package-name-checker/commit/57704d4bdb9addf78aca81af75ef7a45dac59651))
+- **constants:** fix corsmirror domain ([57704d4](https://github.com/remarkablemark/npm-package-name-checker/commit/57704d4bdb9addf78aca81af75ef7a45dac59651))
 
 ## [1.4.1](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.4.0...v1.4.1) (2022-12-26)
 
-
 ### Performance Improvements
 
-* **constants:** replace render with replit ([6a154f4](https://github.com/remarkablemark/npm-package-name-checker/commit/6a154f4bc79a415f3286abc6e6501304dcffc8b1))
+- **constants:** replace render with replit ([6a154f4](https://github.com/remarkablemark/npm-package-name-checker/commit/6a154f4bc79a415f3286abc6e6501304dcffc8b1))
 
 ## [1.4.0](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.3.0...v1.4.0) (2022-09-19)
 
-
 ### Features
 
-* replace Heroku with Render ([d759b3f](https://github.com/remarkablemark/npm-package-name-checker/commit/d759b3ff28b569c973b45d95cb09fa1dcdd3acd6))
+- replace Heroku with Render ([d759b3f](https://github.com/remarkablemark/npm-package-name-checker/commit/d759b3ff28b569c973b45d95cb09fa1dcdd3acd6))
 
 ## [1.3.0](https://github.com/remarkablemark/npm-package-name-checker/compare/v1.2.1...v1.3.0) (2022-09-18)
 
