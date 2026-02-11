@@ -3,9 +3,9 @@
 ![release](https://img.shields.io/github/v/release/remarkablemark/npm-package-name-checker)
 [![build](https://github.com/remarkablemark/npm-package-name-checker/actions/workflows/build.yml/badge.svg)](https://github.com/remarkablemark/npm-package-name-checker/actions/workflows/build.yml)
 
-:mag_right: Check if an [npm](https://www.npmjs.com) package name is available: https://b.remarkabl.org/npm-package-name-checker
+🔍 Check if an [npm](https://www.npmjs.com) package name is available:
 
-See [validate-npm-package-name](https://github.com/npm/validate-npm-package-name).
+- [Site](https://b.remarkabl.org/npm-package-name-checker)
 
 ## Stack
 
@@ -19,10 +19,6 @@ See [validate-npm-package-name](https://github.com/npm/validate-npm-package-name
 
 - [CORSmirror](https://corsmirror.com/)
 - [npm-registry](https://docs.npmjs.com/misc/registry)
-
-### Hosting
-
-- [GitHub Pages](https://pages.github.com/)
 
 ## Install
 
