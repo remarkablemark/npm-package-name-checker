@@ -16,7 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^8.58.0",
     "@typescript-eslint/parser": "^8.32.1",
     "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-simple-import-sort": "^13.0.0",
     "eslint-plugin-tsdoc": "^0.5.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
