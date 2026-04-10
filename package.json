@@ -21,7 +21,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "parcel": "^2.16.4",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.2",
     "typescript": "^5.9.3"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead"
